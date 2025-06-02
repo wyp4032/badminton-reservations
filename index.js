@@ -10,17 +10,21 @@ function loadReservations() {
       data.sort((a, b) => {
         // 提取日期部分（去掉后面的括号内容, 并通过函数转换日期的格式为标准格式
 
-        const aDateStr = dateFormating(a.date.split(' ')[0]); // "2025/6/14"
-        const bDateStr = dateFormating(b.date.split(' ')[0]); // "2025/6/15"
+        const aDateParts = dateFormating(a.date.split(' ')[0]); // "2025/6/14"
+        const bDateParts = dateFormating(b.date.split(' ')[0]); // "2025/6/15"
         
 
         // 取时间段开始时间
         const aTimeStr = a.time.split('～')[0]; // "18:00"
         const bTimeStr = b.time.split('～')[0]; // "17:00"
 
+        const [aHour, aMinute] = aTimeStr.split(':').map(Number);
+        const [bHour, bMinute] = bTimeStr.split(':').map(Number);
+
         // 构造标准 JS 日期字符串并转为 Date 对象
-        const aDateTime = new Date(`${aDateStr} ${aTimeStr}`);
-        const bDateTime = new Date(`${bDateStr} ${bTimeStr}`);
+        const aDateTime = new Date(aDateParts.year, aDateParts.month, aDateParts.day, aHour, aMinute);
+        const bDateTime = new Date(bDateParts.year, bDateParts.month, bDateParts.day, bHour, bMinute);
+      
         
         // 测试代码
         // console.log('aDateStr:', aDateStr, 'aTimeStr:', aTimeStr, 'aDateTime:', aDateTime);
@@ -59,10 +63,11 @@ function loadReservations() {
 }
 
 function dateFormating(dateStrUnformat) {
-  const parts = dateStrUnformat.split('/');
-  const fixedDateStr = `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
-  // 转换成这样的格式 "2025-06-15"
-  const dateStr = new Date(fixedDateStr);
-  return dateStr.toISOString().slice(0, 10);
+  const parts = dateStrUnformat.split('/').map(Number); // [2025, 6, 15]
+  return {
+    year: parts[0],
+    month: parts[1] - 1, // JavaScript 的月份是 0~11
+    day: parts[2]
+  };
 }
 loadReservations();
