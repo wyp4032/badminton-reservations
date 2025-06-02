@@ -1,0 +1,47 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+  background: #fff;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background: #f0f0f0;
+}
+
+.img-container{
+  width: 80vw;   /* 宽度占视口宽度的80% */
+  height: 60vh;  /* 高度占视口高度的60% */
+  border: 1px solid #ccc; /* 方便看效果 */
+  overflow: hidden;       /* 防止溢出 */
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 保持图片比例，完整显示，可能有空白 */
+  display: block;
+}
