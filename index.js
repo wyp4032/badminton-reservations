@@ -3,7 +3,7 @@ function loadReservations() {
     .then(response => response.json())
     .then(data => {
       if (!Array.isArray(data) || data.length === 0) {
-        document.getElementById('result').innerHTML = "<p>没有返回任何数据。</p>";
+        document.getElementById('result').innerHTML = "<p>目前没有任何预约。</p>";
         return;
       }
       // 按照日期先后排序
